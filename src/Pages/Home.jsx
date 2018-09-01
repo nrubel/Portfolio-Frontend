@@ -5,6 +5,7 @@ import Career from './../Components/Career';
 import SelectivePortfolios from './../Components/SelectivePortfolios';
 import urlPropType from 'url-prop-type';
 import isEmpty from '../Components/isEmpty';
+import {Helmet} from 'react-helmet';
 
 class Home extends Component{
     constructor(props){
@@ -60,6 +61,15 @@ class Home extends Component{
         }else{
             return (
                 <div className="home row m-0 flex-column">
+                    <Helmet>
+                        <title>Nasir Uddin - Frontend Developer with ReactJS, WordPress, CSS3</title>
+                        <meta name={'description'} content={this.state.userData.description} />
+                        {/* OGP */}
+                        <meta name="og:title" content={'Nasir Uddin - Frontend Developer with ReactJS, WordPress, CSS3'}/>
+                        <meta name="og:type" content="profile"/>
+                        <meta name="og:site_name" content="Nasir Uddin - Portfolio showcase"/>
+                        <meta name="og:image" content={this.state.userData._pn_u_photo}/>
+                    </Helmet>
                     <Bio user={this.state.userData} badge={this.state.userBadge} skills={this.state.skills} />
                     <SelectivePortfolios list={this.state.list} show={[183]} title={'Work in Progress'} id={'featured-projects'}/>
                     <SelectivePortfolios list={this.state.list} show={[46,14,33,162]} title={'Client Projects'} id={'featured-projects'}/>

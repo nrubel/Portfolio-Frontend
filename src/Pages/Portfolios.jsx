@@ -3,13 +3,15 @@ import urlPropType from 'url-prop-type';
 import renderHTML from 'react-render-html';
 import Img from 'react-image'
 import VisibilitySensor from 'react-visibility-sensor';
+import { Helmet } from 'react-helmet';
 
 class Portfolios extends Component{
     constructor(props){
         super(props);
 
         this.state = {
-            list: []
+            list: [],
+            opgImg: ''
         }
     }
 
@@ -23,7 +25,8 @@ class Portfolios extends Component{
         Promise.all(promise).then(data => {
             data[0].json().then(res=>{
                 this.setState({
-                    list: res
+                    list: res,
+                    opgImg: res[0].thumbnail_url
                 });
             })
         }).catch(error => {
@@ -34,8 +37,19 @@ class Portfolios extends Component{
     }
 
     render(){
+        let opgurl = this.state.opgImg;
+        if(opgurl.match('^http://')){
+            opgurl = opgurl.replace("http://","https://")
+        }
         return(
             <div className="page-projects row mx-0 top-left-line bottom-left-line top-left-focus">
+                <Helmet>
+                    <title>Projects - Nasir Uddin</title>
+                    <meta name={'description'} content={'I look to engage with my clients beyond the conventional design and development agency relationship, becoming a partner to the people and companies I work with.'} />
+                    {/* OGP */}
+                    <meta name="og:title" content={'Projects by Nasir Uddin'}/>
+                    <meta name="og:image" content={opgurl}/>
+                </Helmet>
                 <div className="container">
                     <div className="row mx-0 project-page-header flex-column flex-md-row">
                         <h1 className="page-title">Projects</h1>

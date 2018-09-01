@@ -6,6 +6,8 @@ import renderHTML from 'react-render-html';
 import Img from 'react-image'
 import VisibilitySensor from 'react-visibility-sensor';
 import isEmpty from '../Components/isEmpty';
+import { Helmet } from 'react-helmet';
+import striptags from 'striptags'
 
 class SinglePortfolio extends Component{
     constructor(props){
@@ -42,7 +44,7 @@ class SinglePortfolio extends Component{
 
     render(){
         return(
-            <div className="page-projects single-project row mx-0 top-left-line bottom-left-line top-left-focus">
+            <div className="page-projects single-project row mx-0 top-left-line bottom-left-line top-left-focus">                
                 {
                     isEmpty( this.state.work ) ? (
                         <div className="container">
@@ -50,6 +52,15 @@ class SinglePortfolio extends Component{
                         </div>
                     ) : (
                         <div className="container">
+                            <Helmet>
+                                <title>{striptags( this.state.work.title.rendered )}</title>
+                                <meta name={'description'} content={ striptags( this.state.work.content.rendered ) } />
+                                <meta name="revised" content={this.state.work.date} />
+                                {/* OGP */}
+                                <meta name="og:title" content={`${striptags( this.state.work.title.rendered )} - Nasir Uddin`}/>
+                                <meta name="og:type" content={'article'} />
+                                <meta name="og:type" content={`article:published_time: ${this.state.work.date}`} />
+                            </Helmet>
                             <div className="row">
                                 <div className="col-md-7 order-2 order-md-1">
                                     {
@@ -57,7 +68,12 @@ class SinglePortfolio extends Component{
                                             return(
                                                 <div key={i} className={'project-shots'}>
                                                     <VisibilitySensor>
-                                                        <Img src={v} alt={'Shot ' + i+1} className="project-shot" />
+                                                        <React.Fragment>
+                                                            <Helmet>
+                                                                <meta name="og:image" content={v}/>
+                                                            </Helmet>
+                                                            <Img src={v} alt={'Shot ' + i+1} className="project-shot" />
+                                                        </React.Fragment>
                                                     </VisibilitySensor>
                                                 </div>
                                             )
