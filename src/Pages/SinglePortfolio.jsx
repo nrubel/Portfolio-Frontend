@@ -60,6 +60,7 @@ class SinglePortfolio extends Component{
                                 <meta name="og:title" content={`${striptags( this.state.work.title.rendered )} - Nasir Uddin`}/>
                                 <meta name="og:type" content={'article'} />
                                 <meta name="og:type" content={`article:published_time: ${this.state.work.date}`} />
+                                <meta name="og:url" content={this.state.work.meta[2]}/>
                             </Helmet>
                             <div className="row">
                                 <div className="col-md-7 order-2 order-md-1">
