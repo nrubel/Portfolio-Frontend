@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import { Router, Switch } from 'react-router';
-import createBrowserHistory from 'history/createBrowserHistory';
+import {createBrowserHistory} from 'history';
 
 import Header from './Components/Header';
 import HomeHeader from './Components/HomeHeader';

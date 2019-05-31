@@ -12,10 +12,9 @@ const SelectivePortfolios = props => {
             return f;
         return false
     });
-
-    // console.log(newList);
-
+    console.log(newList);
     return(
+        newList.length > 0 &&
         <section className="row mx-0 feature-works client-works top-left-line bottom-left-line" id={props.id}>
             <div className="container">
                 <div className="row mx-0 justify-content-between align-items-center works-header flex-column flex-md-row">

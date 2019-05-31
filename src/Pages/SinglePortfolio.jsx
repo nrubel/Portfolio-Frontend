@@ -94,7 +94,7 @@ class SinglePortfolio extends Component{
                                         </div>
                                         <div className="col-6 project-client mt-3 mb-4">
                                             <h2>Live Url</h2>
-                                            <a href={this.state.work.meta[2]} target="_blank"><h4>{renderHTML('&#128279;')} See Live</h4></a>
+                                            <a href={this.state.work.meta[2]} target="_blank" rel="noopener noreferrer"><h4>{renderHTML('&#128279;')} See Live</h4></a>
                                         </div>
                                         <div className="col-6 project-role mt-3 mb-4">
                                             <h2>Role</h2>

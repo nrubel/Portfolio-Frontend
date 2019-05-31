@@ -17,7 +17,9 @@ class Home extends Component{
             cv: '',
             userBadge: {},
             skills: [],
-            list: []
+            list: [],
+            wip: [],
+            samples: [],
         }
     }
 
@@ -26,8 +28,10 @@ class Home extends Component{
         // user information
         const requestUser = fetch(this.props.api + 'wp/v2/users/' + this.props.user);
         const requestList = fetch(this.props.api + 'wp/v2/portfolio/list');
+        const requestWIP = fetch(this.props.api + 'wp/v2/portfolio/type-of/97');
+        const requestSamples = fetch(this.props.api + 'wp/v2/portfolio/type-of/98');
 
-        const promise = [requestUser, requestList];
+        const promise = [requestUser, requestList, requestWIP, requestSamples];
 
         Promise.all(promise).then(data => {
             data[0].json().then(res=>{
@@ -43,7 +47,9 @@ class Home extends Component{
                 this.setState({
                     list: res
                 });
-            })
+            });
+            data[2].json().then(wip=>this.setState({wip}));
+            data[3].json().then(samples=>this.setState({samples}));
         }).catch(error => {
             console.log(error)
         });
@@ -71,8 +77,8 @@ class Home extends Component{
                         <meta name="og:image" content={this.state.userData._pn_u_photo}/>
                     </Helmet>
                     <Bio user={this.state.userData} badge={this.state.userBadge} skills={this.state.skills} />
-                    <SelectivePortfolios list={this.state.list} show={[183]} title={'Work in Progress'} id={'featured-projects'}/>
-                    <SelectivePortfolios list={this.state.list} show={[46,14,33,162]} title={'Client Projects'} id={'featured-projects'}/>
+                    <SelectivePortfolios list={this.state.list} show={this.state.wip} title={'Work in Progress'} id={'featured-projects'}/>
+                    <SelectivePortfolios list={this.state.list} show={this.state.samples} title={'Client Projects'} id={'featured-projects'}/>
                     <Career jobs={this.state.jobs} cv={this.state.cv} />
                 </div>
             )
